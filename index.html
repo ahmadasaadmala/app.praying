@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title> <p>نوێژه کانم</p>| Prayer Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p{
+        font-size: 60px;
+        background-color: white;
+        border-radius: 35px;
+        color: #000000;
+        padding: 10px;
+        }
+
+
+
+        body {
+            background: #F7F9FA;
+            font-family: 'Segoe UI', 'Tahoma', 'Noto Sans Arabic', system-ui, sans-serif;
+            padding: 1rem;
+            min-height: 100vh;
+        }
+
+        .app-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .prayer-card {
+            background: linear-gradient(145deg, #1e2a24, #16221c);
+            border-radius: 2.5rem;
+            overflow: hidden;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            border: 1px solid #3e4d44;
+        }
+
+        .header {
+            background: #0f3d2e;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            color: #ffffff;
+            border-bottom: 1px solid #09b24d;
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lang-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .lang-btn {
+            background: #09b24d;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: #1f3127;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: inherit;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: #ffffff;
+            color: #1f3127;
+        }
+
+        .stats-main {
+            background: #ffffff;
+            margin: 1rem 1rem 0 1rem;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .total-box {
+            text-align: center;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            border: 1px solid #000000;
+        }
+
+        .total-number {
+            font-size: 2.9rem;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1;
+        }
+
+        .total-label {
+            font-size: 1.6rem;
+            color: #000000;
+        }
+
+        .streak-box {
+            text-align: center;
+            flex: 1;
+            background: #ffffff;
+            border-radius: 1.2rem;
+            padding: 0.8rem;
+            border: 1px solid #000000;
+            font-size: 30px;
+            
+        }
+        .streak-number {
+            font-size: 50px;
+            font-weight: 800;
+            color: #000000;
+            line-height: 1;
+        }
+
+        .streak-label {
+            font-size: 1.8rem;
+            color: #000000;
+        }
+
+        .date-row {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .date-badge {
+            background: #00000055;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+        }
+
+        .today-stats {
+            background: #ffffff;
+            margin: 0.8rem 1rem;
+            border-radius: 1rem;
+            padding: 0.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .today-count {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .badge {
+            background: #ffffff;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            font-size: 20px;
+        }
+
+        .progress-section {
+            padding: 0.6rem 1.5rem;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .progress-bar-container {
+            background: #16221c;
+            border-radius: 40px;
+            height: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #ffffff, #ffffff);
+            width: 0%;
+            height: 100%;
+            border-radius: 40px;
+            transition: width 0.25s;
+            color: #000000;
+        }
+
+        .prayers-list {
+            padding: 0.5rem 1.2rem 1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .prayer-item {
+            background: #ffffff;
+            border-radius: 1.3rem;
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #000000;
+        }
+
+        .prayer-name {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #000000;
+        }
+
+        .prayer-attr {
+            font-size: 0.65rem;
+            background: #2a4a38;
+            padding: 0.2rem 0.65rem;
+            border-radius: 30px;
+            color: #cddbb8;
+            margin-right: 0.5rem;
+        }
+
+        .prayer-status {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .check-icon {
+            font-size: 1.4rem;
+            min-width: 42px;
+            text-align: center;
+        }
+
+        .prayer-toggle-btn {
+            background: #3c5a4a;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #f9efcf;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .prayer-toggle-btn:hover {
+            background: #4e7a64;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 0.8rem;
+            padding: 0.7rem 1.2rem 0.5rem 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.7rem 0.3rem;
+            border-radius: 60px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+            background: #2f483c;
+            color: #f7efd6;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-save {
+            background: #ffffff;
+            color: #000000;
+            font-size: 25px;
+        }
+
+        .history-section {
+            background: #1a2a24;
+            margin: 0.5rem 1rem 1rem 1rem;
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            border: 1px solid #ffffff;
+        }
+
+        .history-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 0.7rem;
+            border-bottom: 1px dashed #ffffff;
+            padding-bottom: 0.3rem;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: #ffffff;
+            border-radius: 1rem;
+            padding: 0.5rem 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            gap: 0.5rem;
+        }
+
+        .history-date {
+            color: #000000;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .history-count {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 30px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.4rem;
+            width: 77px;
+        }
+
+        .history-delete {
+            background: #ffffff;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .history-delete:hover {
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            transform: scale(1.1);
+            
+        }
+
+        .history-empty {
+            text-align: center;
+            color: #7a9a86;
+            font-size: 0.75rem;
+            padding: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.68rem;
+            padding: 0.8rem;
+            color: #7a9a86;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffffff;
+            color: #faf0cf;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            z-index: 999;
+            box-shadow: 0 5px 12px black;
+            direction: rtl;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .toast-time {
+            background: #00000055;
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: normal;
+        }
+
+        @media (max-width: 480px) {
+            .total-number { font-size: 1.8rem; }
+            .streak-number { font-size: 1.5rem; }
+            .prayer-name { font-size: 1.1rem; }
+            .history-item { font-size: 0.7rem; }
+            .toast-notification { white-space: normal; text-align: center; font-size: 0.75rem; }
+            .action-bar { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+    <div class="prayer-card">
+        <div class="header">
+            <p>
+                <span></span>
+                <span id="headerTitle">نوێژه کانم</span>
+                <span></span>
+            </p><br>
+            <div class="lang-buttons">
+                <button class="lang-btn active" data-lang="ckb">کوردی</button>
+                <button class="lang-btn" data-lang="ar">العربية</button>
+                <button class="lang-btn" data-lang="en">English</button>
+            </div>
+            <div class="date-row">
+                <div class="date-badge" id="gregDate"></div>
+                <div class="date-badge" id="hijriDate"></div>
+            </div>
+        </div>
+
+        <div class="stats-main">
+            <div class="total-box">
+                <div class="total-number" id="totalPrayers">0</div>
+                <div class="total-label" id="totalLabel">📊 کۆی گشتی نوێژەکان</div>
+            </div>
+            <div class="streak-box">
+                <div class="streak-number" id="streakCount">0</div>
+                <div class="streak-label" id="streakLabel">رۆژه کان</div>
+            </div>
+        </div>
+
+        <div class="today-stats">
+            <span id="todayText">📅 ئەمڕۆ</span>
+            <span class="today-count" id="todayPrayerCount">0</span>
+            <span id="outOfText">لە ٥ نوێژ</span>
+            <span class="badge" id="todayLevelBadge">تۆمار بکە</span>
+        </div>
+
+        <div class="history-section">
+            <div class="history-title" id="historyTitle">📜 مێژووی تۆمارەکان (بەروار + ژمارەی نوێژ)</div>
+            <div class="history-list" id="historyList"></div>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span id="progressText">⭐ نوێژه کانم ئەمڕۆ</span>
+                <span id="progCount">0/5</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="progFill"></div>
+            </div>
+        </div>
+
+        <div class="prayers-list" id="prayerList"></div>
+
+        <div class="action-bar">
+            <button class="btn btn-save" id="saveTodayBtn"><span id="saveBtnText">💾 تۆماری ئەمڕۆ</span></button>
+        </div>
+        <footer id="footerText">✨ هەر نوێژێک تۆمار بکەیت، بە کۆی گشتی زیاد دەکات • لە مێژوودا دەتوانیت بە ❌ بیسڕیتەوە</footer>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const PRAYERS_LIST = [
+            { id: "fajr", name: { ckb: "فەجر", ar: "الفجر", en: "Fajr" }, attr: { ckb: "بەیانی", ar: "الفجر", en: "Dawn" } },
+            { id: "dhuhr", name: { ckb: "نیوەڕۆ", ar: "الظهر", en: "Dhuhr" }, attr: { ckb: "ظهر", ar: "الظهر", en: "Noon" } },
+            { id: "asr", name: { ckb: "عەسر", ar: "العصر", en: "Asr" }, attr: { ckb: "عەسر", ar: "العصر", en: "Afternoon" } },
+            { id: "maghrib", name: { ckb: "مەغریب", ar: "المغرب", en: "Maghrib" }, attr: { ckb: "ئێوارە", ar: "المغرب", en: "Sunset" } },
+            { id: "isha", name: { ckb: "عیشا", ar: "العشاء", en: "Isha" }, attr: { ckb: "شەو", ar: "العشاء", en: "Night" } }
+        ];
+
+        const STORAGE_PRAYER = "prayer_status_final";
+        const STORAGE_DATE = "prayer_current_date_final";
+        const STORAGE_TOTAL = "prayer_total_count_final";
+        const STORAGE_STREAK = "prayer_streak_final";
+        const STORAGE_LAST_COMPLETE = "prayer_last_complete_final";
+        const STORAGE_HISTORY = "prayer_history_final";
+        const STORAGE_LANG = "prayer_lang_final";
+
+        let prayersStatus = { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false };
+        let currentDateKey = "";
+        let totalPrayers = 0;
+        let streakCount = 0;
+        let lastCompleteDate = "";
+        let history = {};
+        let currentLang = "ckb";
+
+        const translations = {
+            ckb: {
+                headerTitle: "نوێژه کانم",
+                totalLabel: "📊 کۆی گشتی نوێژەکان",
+                streakLabel: "رۆژه کان",
+                todayText: "📅 ئەمڕۆ",
+                outOfText: "لە ٥ نوێژ",
+                historyTitle: "📜 مێژووی تۆمارەکان (بەروار + ژمارەی نوێژ)",
+                historyEmpty: "هیچ تۆمارێک نییە",
+                progressText: "⭐ نوێژه کانم ئەمڕۆ",
+                saveBtnText: "💾 تۆماری ئەمڕۆ",
+                footerText: "✨ هەر نوێژێک تۆمار بکەیت، بە کۆی گشتی زیاد دەکات • لە مێژوودا دەتوانیت بە ❌ بیسڕیتەوە",
+                badge5: "🔥 تەواو! زنجیرە زیاد دەکات",
+                badge4: "⭐ یەک نوێژ ماوە",
+                badge3: "🌙 ٢ نوێژ ماوە",
+                badge2: "📿 ٣ نوێژ ماوە",
+                badge1: "☀️ ٤ نوێژ ماوە",
+                badge0: "تۆمار بکە",
+                deleteConfirm: "ئایا دەتەوێت تۆماری ڕۆژی ",
+                deleteSuccess: "🗑️ تۆماری ڕۆژی ",
+                deleteSuffix: " سڕایەوە",
+                newDayToast: "🌅 ڕۆژی نوێ! نوێژەکان ڕێست کراون.",
+                resetConfirm: "⚠️ هۆشیار! ئەمە هەموو داتاکان لەناودەبات (کۆی گشتی، زنجیرە، مێژوو). دڵنیایت؟",
+                resetToast: "🗑️ ڕێستی گشتی تەواو کرا!",
+                saveToast: "💾 دۆخی ئەمڕۆ تۆمار کرا",
+                saveToastCount: "💾 تۆمار کرا: ",
+                dayChangeToast: "📅 ڕۆژ گۆڕا! نوێژەکان بۆ ئەمڕۆ نوێ کرانەوە.",
+                streakToast: "🏆 ئەمڕۆ هەر ٥ نوێژت تەواو کرد! زنجیرەکەت زیاد کرا",
+                prayersUnit: "نوێژ",
+                undoText: "هەڵوەشاندنەوە",
+                performedText: "جێبەجێ کرا"
+            },
+            ar: {
+                headerTitle: "صلواتي",
+                totalLabel: "📊 إجمالي الصلوات",
+                streakLabel: "الأيام المتتالية",
+                todayText: "📅 اليوم",
+                outOfText: "من ٥ صلوات",
+                historyTitle: "📜 سجل التتبع (تاريخ + عدد الصلوات)",
+                historyEmpty: "لا يوجد سجل",
+                progressText: "⭐ صلواتي اليوم",
+                saveBtnText: "💾 حفظ اليوم",
+                footerText: "✨ كل صلاة تسجلها تضاف إلى المجموع • في السجل يمكنك حذفها بـ ❌",
+                badge5: "🔥 أكملت! السلسلة تزيد",
+                badge4: "⭐ بقي صلاة واحدة",
+                badge3: "🌙 بقي صلاتان",
+                badge2: "📿 بقي ٣ صلوات",
+                badge1: "☀️ بقي ٤ صلوات",
+                badge0: "سجل",
+                deleteConfirm: "هل تريد حذف سجل يوم ",
+                deleteSuccess: "🗑️ تم حذف سجل يوم ",
+                deleteSuffix: "",
+                newDayToast: "🌅 يوم جديد! تم إعادة تعيين الصلوات.",
+                resetConfirm: "⚠️ تحذير! هذا سيحذف جميع البيانات (المجموع، السلسلة، السجل). هل أنت متأكد؟",
+                resetToast: "🗑️ تم إعادة التعيين الكامل!",
+                saveToast: "💾 تم حفظ وضع اليوم",
+                saveToastCount: "💾 تم الحفظ: ",
+                dayChangeToast: "📅 تغير اليوم! تم إعادة تعيين الصلوات لليوم الجديد.",
+                streakToast: "🏆 أكملت جميع الصلوات الخمس اليوم! تزيد السلسلة",
+                prayersUnit: "صلاة",
+                undoText: "إلغاء",
+                performedText: "تم الأداء"
+            },
+            en: {
+                headerTitle: "My Prayers",
+                totalLabel: "📊 Total Prayers",
+                streakLabel: "Streak (Days)",
+                todayText: "📅 Today",
+                outOfText: "out of 5 prayers",
+                historyTitle: "📜 History Record (Date + Prayer Count)",
+                historyEmpty: "No history yet",
+                progressText: "⭐ My Prayers Today",
+                saveBtnText: "💾 Save Today",
+                footerText: "✨ Each prayer you mark adds to total • You can delete history entries with ❌",
+                badge5: "🔥 Complete! Streak increases",
+                badge4: "⭐ One prayer left",
+                badge3: "🌙 2 prayers left",
+                badge2: "📿 3 prayers left",
+                badge1: "☀️ 4 prayers left",
+                badge0: "Record",
+                deleteConfirm: "Delete record for ",
+                deleteSuccess: "🗑️ Deleted record for ",
+                deleteSuffix: "",
+                newDayToast: "🌅 New day! Prayers reset.",
+                resetConfirm: "⚠️ Warning! This will delete all data (Total, Streak, History). Are you sure?",
+                resetToast: "🗑️ Full reset completed!",
+                saveToast: "💾 Today's status saved",
+                saveToastCount: "💾 Saved: ",
+                dayChangeToast: "📅 Day changed! Prayers reset for today.",
+                streakToast: "🏆 You completed all 5 prayers today! Streak increased",
+                prayersUnit: "prayers",
+                undoText: "Undo",
+                performedText: "Performed"
+            }
+        };
+
+        function t(key) {
+            const trans = translations[currentLang];
+            return trans && trans[key] !== undefined ? trans[key] : (translations.ckb[key] || key);
+        }
+
+        function getCurrentTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            return `${hours}:${minutes} ${ampm}`;
+        }
+
+        function showToast(msg, bgColor="#2c5e47", duration=2000) {
+            const toast = document.createElement("div");
+            toast.className = "toast-notification";
+            const timeStr = getCurrentTime();
+            toast.innerHTML = `<span>${msg}</span><span class="toast-time">🕐 ${timeStr}</span>`;
+            toast.style.backgroundColor = bgColor;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transition = "opacity 0.3s";
+                setTimeout(() => toast.remove(), 300);
+            }, duration);
+        }
+
+        function updateAllTexts() {
+            document.getElementById("headerTitle").innerText = t("headerTitle");
+            document.getElementById("totalLabel").innerText = t("totalLabel");
+            document.getElementById("streakLabel").innerText = t("streakLabel");
+            document.getElementById("todayText").innerText = t("todayText");
+            document.getElementById("outOfText").innerText = t("outOfText");
+            document.getElementById("historyTitle").innerHTML = t("historyTitle");
+            document.getElementById("progressText").innerText = t("progressText");
+            document.getElementById("saveBtnText").innerHTML = t("saveBtnText");
+            document.getElementById("footerText").innerText = t("footerText");
+            updateTodayStats();
+            renderPrayers();
+            renderHistory();
+        }
+
+        function getTodayKey() {
+            const d = new Date();
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        function getYesterdayKey(dateStr) {
+            const d = new Date(dateStr);
+            d.setDate(d.getDate() - 1);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+
+        function formatDateKeyToDisplay(dateKey) {
+            const parts = dateKey.split('-');
+            if (parts.length !== 3) return dateKey;
+            const year = parseInt(parts[0]);
+            const month = parseInt(parts[1]);
+            const day = parseInt(parts[2]);
+            const d = new Date(year, month-1, day);
+            
+            let weekday;
+            if (currentLang === "ckb") {
+                const weekdays = ["یەکشەممە", "دووشەممە", "سێشەممە", "چوارشەممە", "پێنجشەممە", "هەینی", "شەممە"];
+                weekday = weekdays[d.getDay()];
+            } else if (currentLang === "ar") {
+                const weekdays = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+                weekday = weekdays[d.getDay()];
+            } else {
+                const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                weekday = weekdays[d.getDay()];
+            }
+            return `${day}/${month}/${year} (${weekday})`;
+        }
+
+        function getTodayPrayerCount() {
+            return Object.values(prayersStatus).filter(v => v === true).length;
+        }
+
+        function loadHistory() {
+            const saved = localStorage.getItem(STORAGE_HISTORY);
+            if (saved) {
+                try {
+                    history = JSON.parse(saved);
+                } catch(e) { history = {}; }
+            } else {
+                history = {};
+            }
+            renderHistory();
+        }
+
+        function saveHistory() {
+            localStorage.setItem(STORAGE_HISTORY, JSON.stringify(history));
+            renderHistory();
+        }
+
+        function deleteHistoryItem(dateKey) {
+            const displayDate = formatDateKeyToDisplay(dateKey);
+            if (confirm(t("deleteConfirm") + displayDate + "؟")) {
+                delete history[dateKey];
+                saveHistory();
+                showToast(t("deleteSuccess") + displayDate + t("deleteSuffix"), "#a35c3a", 1800);
+                return true;
+            }
+            return false;
+        }
+
+        function renderHistory() {
+            const container = document.getElementById("historyList");
+            if (!container) return;
+            
+            const entries = Object.entries(history);
+            if (entries.length === 0) {
+                container.innerHTML = `<div class="history-empty">${t("historyEmpty")}</div>`;
+                return;
+            }
+            
+            entries.sort((a, b) => b[0].localeCompare(a[0]));
+            
+            let html = "";
+            for (let [dateKey, count] of entries) {
+                const displayDate = formatDateKeyToDisplay(dateKey);
+                html += `
+                    <div class="history-item" data-date="${dateKey}">
+                        <span class="history-date">📆 ${displayDate}</span>
+                        <span class="history-count">${count} ${t("prayersUnit")}</span>
+                        <button class="history-delete" data-date="${dateKey}">❌</button>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+            
+            const deleteButtons = document.querySelectorAll(".history-delete");
+            deleteButtons.forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    const dateKey = btn.getAttribute("data-date");
+                    if (dateKey && history[dateKey]) {
+                        deleteHistoryItem(dateKey);
+                    }
+                });
+            });
+        }
+
+        function loadTotalAndStreak() {
+            const savedTotal = localStorage.getItem(STORAGE_TOTAL);
+            totalPrayers = savedTotal ? parseInt(savedTotal) : 0;
+            const savedStreak = localStorage.getItem(STORAGE_STREAK);
+            streakCount = savedStreak ? parseInt(savedStreak) : 0;
+            const savedLastComplete = localStorage.getItem(STORAGE_LAST_COMPLETE);
+            lastCompleteDate = savedLastComplete ? savedLastComplete : "";
+            updateTotalUI();
+            updateStreakUI();
+        }
+
+        function saveTotalAndStreak() {
+            localStorage.setItem(STORAGE_TOTAL, totalPrayers.toString());
+            localStorage.setItem(STORAGE_STREAK, streakCount.toString());
+            localStorage.setItem(STORAGE_LAST_COMPLETE, lastCompleteDate);
+        }
+
+        function updateTotalUI() {
+            const totalEl = document.getElementById("totalPrayers");
+            if (totalEl) totalEl.innerText = totalPrayers;
+        }
+
+        function updateStreakUI() {
+            const streakEl = document.getElementById("streakCount");
+            if (streakEl) streakEl.innerText = streakCount;
+        }
+
+        function addPrayerToTotal() {
+            totalPrayers++;
+            saveTotalAndStreak();
+            updateTotalUI();
+        }
+
+        function removePrayerFromTotal() {
+            totalPrayers--;
+            if (totalPrayers < 0) totalPrayers = 0;
+            saveTotalAndStreak();
+            updateTotalUI();
+        }
+
+        function updateStreakBasedOnToday() {
+            const today = getTodayKey();
+            const todayComplete = (getTodayPrayerCount() === 5);
+            
+            if (todayComplete) {
+                if (lastCompleteDate === "") {
+                    streakCount = 1;
+                } else {
+                    const yesterday = getYesterdayKey(today);
+                    if (lastCompleteDate === yesterday) {
+                        streakCount++;
+                    } else if (lastCompleteDate !== today) {
+                        streakCount = 1;
+                    }
+                }
+                lastCompleteDate = today;
+            }
+            saveTotalAndStreak();
+            updateStreakUI();
+        }
+
+        function togglePrayer(prayerId) {
+            if (!prayersStatus.hasOwnProperty(prayerId)) return;
+            
+            const wasDone = prayersStatus[prayerId];
+            const wasComplete = getTodayPrayerCount() === 5;
+            
+            prayersStatus[prayerId] = !prayersStatus[prayerId];
+            savePrayerData();
+            
+            if (!wasDone && prayersStatus[prayerId]) {
+                addPrayerToTotal();
+            } else if (wasDone && !prayersStatus[prayerId]) {
+                removePrayerFromTotal();
+            }
+            
+            renderPrayers();
+            updateProgressUI();
+            updateTodayStats();
+            
+            const nowComplete = getTodayPrayerCount() === 5;
+            if (!wasComplete && nowComplete) {
+                updateStreakBasedOnToday();
+                showToast(t("streakToast"), "#e2b05e", 2500);
+            } else if (wasComplete && !nowComplete) {
+                updateStreakBasedOnToday();
+            }
+        }
+
+        function renderPrayers() {
+            const container = document.getElementById("prayerList");
+            if (!container) return;
+            let html = "";
+            for (let p of PRAYERS_LIST) {
+                const done = prayersStatus[p.id];
+                const icon = done ? "✅" : "◻️";
+                const btnText = done ? t("undoText") : t("performedText");
+                const prayerName = p.name[currentLang] || p.name.ckb;
+                const prayerAttr = p.attr[currentLang] || p.attr.ckb;
+                html += `
+                    <div class="prayer-item">
+                        <div>
+                            <span class="prayer-name">${prayerName}</span>
+                            <span class="prayer-attr">${prayerAttr}</span>
+                        </div>
+                        <div class="prayer-status">
+                            <div class="check-icon">${icon}</div>
+                            <button class="prayer-toggle-btn" data-id="${p.id}">${btnText}</button>
+                        </div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+            document.querySelectorAll(".prayer-toggle-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    const id = btn.getAttribute("data-id");
+                    if (id) togglePrayer(id);
+                });
+            });
+        }
+
+        function updateProgressUI() {
+            const totalDone = getTodayPrayerCount();
+            const percent = (totalDone / 5) * 100;
+            const fillEl = document.getElementById("progFill");
+            if (fillEl) fillEl.style.width = `${percent}%`;
+            const countSpan = document.getElementById("progCount");
+            if (countSpan) countSpan.innerText = `${totalDone}/5`;
+        }
+
+        function updateTodayStats() {
+            const count = getTodayPrayerCount();
+            const countEl = document.getElementById("todayPrayerCount");
+            if (countEl) countEl.innerText = count;
+            
+            const badgeEl = document.getElementById("todayLevelBadge");
+            if (badgeEl) {
+                if (count === 5) badgeEl.innerHTML = t("badge5");
+                else if (count === 4) badgeEl.innerHTML = t("badge4");
+                else if (count === 3) badgeEl.innerHTML = t("badge3");
+                else if (count === 2) badgeEl.innerHTML = t("badge2");
+                else if (count === 1) badgeEl.innerHTML = t("badge1");
+                else badgeEl.innerHTML = t("badge0");
+            }
+        }
+
+        function savePrayerData() {
+            localStorage.setItem(STORAGE_PRAYER, JSON.stringify(prayersStatus));
+            localStorage.setItem(STORAGE_DATE, currentDateKey);
+        }
+
+        function loadOrInitByDate() {
+            const today = getTodayKey();
+            const savedDate = localStorage.getItem(STORAGE_DATE);
+            const savedPrayersRaw = localStorage.getItem(STORAGE_PRAYER);
+            
+            if (!savedDate || savedDate !== today) {
+                if (savedDate && savedPrayersRaw) {
+                    try {
+                        const oldStatus = JSON.parse(savedPrayersRaw);
+                        const oldCount = Object.values(oldStatus).filter(v => v === true).length;
+                        if (oldCount > 0 && savedDate) {
+                            history[savedDate] = oldCount;
+                            saveHistory();
+                        }
+                    } catch(e) {}
+                }
+                
+                prayersStatus = { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false };
+                currentDateKey = today;
+                savePrayerData();
+            } else {
+                if (savedPrayersRaw) {
+                    try {
+                        const parsed = JSON.parse(savedPrayersRaw);
+                        for (let p of PRAYERS_LIST) {
+                            if (typeof parsed[p.id] !== 'boolean') parsed[p.id] = false;
+                        }
+                        prayersStatus = parsed;
+                    } catch(e) {
+                        prayersStatus = { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false };
+                    }
+                }
+                currentDateKey = today;
+            }
+        }
+
+        function saveToday() {
+            savePrayerData();
+            const todayCount = getTodayPrayerCount();
+            if (todayCount > 0 && currentDateKey) {
+                history[currentDateKey] = todayCount;
+                saveHistory();
+                showToast(t("saveToastCount") + todayCount + " " + t("prayersUnit"), "#b9843b", 1500);
+            } else {
+                showToast(t("saveToast"), "#2e7d5e", 1200);
+            }
+            updateStreakBasedOnToday();
+        }
+
+        function fullGlobalReset() {
+            if (confirm(t("resetConfirm"))) {
+                prayersStatus = { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false };
+                const todayKey = getTodayKey();
+                currentDateKey = todayKey;
+                savePrayerData();
+                totalPrayers = 0;
+                streakCount = 0;
+                lastCompleteDate = "";
+                history = {};
+                saveTotalAndStreak();
+                saveHistory();
+                renderPrayers();
+                updateProgressUI();
+                updateDateDisplay();
+                updateTotalUI();
+                updateStreakUI();
+                updateTodayStats();
+                showToast(t("resetToast"), "#a35c3a");
+            }
+        }
+
+        function updateDateDisplay() {
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            let gregStr;
+            if (currentLang === "ckb") {
+                gregStr = now.toLocaleDateString('fa-IR', options) || now.toLocaleDateString();
+            } else if (currentLang === "ar") {
+                gregStr = now.toLocaleDateString('ar-EG', options);
+            } else {
+                gregStr = now.toLocaleDateString('en-US', options);
+            }
+            document.getElementById("gregDate").innerHTML = `📆 ${gregStr}`;
+            
+            const year = now.getFullYear();
+            const hijriYear = Math.floor(year - 622 + (year - 622)/32.5);
+            const monthsCkb = ["مەحەڕەم", "سەفەر", "ڕەبیعەلئەووەڵ", "ڕەبیعەلئاخر", "جومادەلئوولا", "جومادەلئاخرة", "ڕەجەب", "شەعبان", "ڕەمەزان", "شەوال", "زولقەعدە", "زولحەججە"];
+            const monthsAr = ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"];
+            const monthsEn = ["Muharram", "Safar", "Rabi' al-Awwal", "Rabi' al-Thani", "Jumada al-Awwal", "Jumada al-Thani", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhul-Qi'dah", "Dhul-Hijjah"];
+            
+            let monthName;
+            const monthIndex = now.getMonth();
+            if (currentLang === "ckb") monthName = monthsCkb[monthIndex];
+            else if (currentLang === "ar") monthName = monthsAr[monthIndex];
+            else monthName = monthsEn[monthIndex];
+            
+            document.getElementById("hijriDate").innerHTML = `🕋 ${hijriYear} ${monthName || ""}`;
+        }
+
+        function autoDateWatcher() {
+            setInterval(() => {
+                const nowDate = getTodayKey();
+                if (currentDateKey && nowDate !== currentDateKey) {
+                    const oldCount = getTodayPrayerCount();
+                    if (oldCount > 0 && currentDateKey) {
+                        history[currentDateKey] = oldCount;
+                        saveHistory();
+                    }
+                    
+                    prayersStatus = { fajr: false, dhuhr: false, asr: false, maghrib: false, isha: false };
+                    currentDateKey = nowDate;
+                    savePrayerData();
+                    renderPrayers();
+                    updateProgressUI();
+                    updateDateDisplay();
+                    updateTodayStats();
+                    updateStreakBasedOnToday();
+                    showToast(t("dayChangeToast"), "#348c6c");
+                }
+            }, 60000);
+        }
+
+        function bindCoreButtons() {
+            document.getElementById("saveTodayBtn")?.addEventListener("click", saveToday);
+            
+            document.querySelectorAll(".lang-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                    currentLang = btn.getAttribute("data-lang");
+                    localStorage.setItem(STORAGE_LANG, currentLang);
+                    updateAllTexts();
+                    updateDateDisplay();
+                    renderHistory();
+                });
+            });
+        }
+
+        function init() {
+            const savedLang = localStorage.getItem(STORAGE_LANG);
+            if (savedLang && (savedLang === "ckb" || savedLang === "ar" || savedLang === "en")) {
+                currentLang = savedLang;
+            }
+            document.querySelectorAll(".lang-btn").forEach(btn => {
+                if (btn.getAttribute("data-lang") === currentLang) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+            
+            loadHistory();
+            loadTotalAndStreak();
+            loadOrInitByDate();
+            renderPrayers();
+            updateProgressUI();
+            updateDateDisplay();
+            updateTodayStats();
+            updateStreakBasedOnToday();
+            bindCoreButtons();
+            autoDateWatcher();
+            updateAllTexts();
+        }
+
+        init();
+    })();
+</script>
+</body>
+</html>
+</body>
+</html>
+</body>
+</html>
